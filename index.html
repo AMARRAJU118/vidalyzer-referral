@@ -8,11 +8,16 @@
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
 
-        // Redirect to Play Store
-        window.location.href = `https://play.google.com/store/apps/details?id=com.amarraju.vidalyzer&referral=${code}`;
+        // Try to open app first
+        window.location.href = `vidalyzer://referral?code=${code}`;
+
+        // Fallback to Play Store after timeout
+        setTimeout(() => {
+            window.location.href = `https://play.google.com/store/apps/details?id=com.amarraju.vidalyzer&referrer=code%3D${code}`;
+        }, 2500);
     </script>
 </head>
 <body>
-    <p>Redirecting to Play Store...</p>
+    <p>Redirecting...</p>
 </body>
 </html>
